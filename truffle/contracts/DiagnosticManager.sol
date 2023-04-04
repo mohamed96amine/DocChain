@@ -16,7 +16,6 @@ contract DiagnosticManager is AccessControl, Ownable, DiagnosticStructs {
     // siret to diagnostician address mapping
     mapping(string => address) public siretToDiagnostician;
     mapping(address => Diagnostician) public diagnosticians;
-
     mapping(address => PropertyOwner) private propertyOwners;
 
     constructor(DiagnosticToken _diagnosticToken) {
