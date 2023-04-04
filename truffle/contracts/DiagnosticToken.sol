@@ -23,8 +23,8 @@ contract DiagnosticToken is ERC721, ERC721URIStorage, AccessControl {
     }
 
     constructor() ERC721("Diagnostic", "DGC") {
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(DIAGNOSTICIAN_ROLE, msg.sender);
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _setupRole(DIAGNOSTICIAN_ROLE, msg.sender);
     }
 
     function safeMint(address to, string memory uri) public {

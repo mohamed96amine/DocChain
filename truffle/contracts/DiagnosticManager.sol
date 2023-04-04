@@ -7,13 +7,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./DiagnosticToken.sol";
 import "./DiagnosticDomain.sol";
 
-// import "./DiagnosticEvents.sol";
-
 contract DiagnosticManager is AccessControl, Ownable, DiagnosticStructs {
     using Counters for Counters.Counter;
     Counters.Counter private _diagnosticIds;
     DiagnosticToken private diagnosticToken;
-
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     // siret to diagnostician address mapping
@@ -23,9 +20,9 @@ contract DiagnosticManager is AccessControl, Ownable, DiagnosticStructs {
     mapping(address => PropertyOwner) private propertyOwners;
 
     constructor(DiagnosticToken _diagnosticToken) {
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(MINTER_ROLE, msg.sender);
-        diagnosticToken = DiagnosticToken(_diagnosticToken);
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _setupRole(MINTER_ROLE, msg.sender);
+        diagnosticToken = _diagnosticToken;
     }
 
     event DiagnosticianCertified(address diagnosticianAddress);
@@ -57,12 +54,6 @@ contract DiagnosticManager is AccessControl, Ownable, DiagnosticStructs {
         address _addr
     ) external view returns (Diagnostician memory) {
         return diagnosticians[_addr];
-    }
-
-    function getPropertyOwner(
-        address _addr
-    ) external view returns (PropertyOwner memory) {
-        return propertyOwners[_addr];
     }
 
     function getDiagnosticURI(
