@@ -65,6 +65,7 @@ function EthProvider({ children }) {
     const tryInit = async () => {
       try {
         const artifact = require("../../contracts/DiagnosticManager.json");
+
         init(artifact);
       } catch (err) {
         console.error(err);

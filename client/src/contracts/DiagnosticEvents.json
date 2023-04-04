@@ -1,0 +1,192 @@
+{
+  "contractName": "DiagnosticEvents",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "diagnosticianAddress",
+          "type": "address"
+        }
+      ],
+      "name": "AskedVerification",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "diagnosticianAddress",
+          "type": "address"
+        }
+      ],
+      "name": "DiagnosticianCertified",
+      "type": "event"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"diagnosticianAddress\",\"type\":\"address\"}],\"name\":\"AskedVerification\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"diagnosticianAddress\",\"type\":\"address\"}],\"name\":\"DiagnosticianCertified\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/DiagnosticEvents.sol\":\"DiagnosticEvents\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/DiagnosticEvents.sol\":{\"keccak256\":\"0xf421dc3b8397446b8ce9639583f422508957911c9c61bd0ded16bfe7026d30b3\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://8f6514c0d53d57768e878d3bbbd013443197e837453bfd5c5987707182632cc5\",\"dweb:/ipfs/QmSHdoVGqchk8NzzQBKZgw5ZUuiyF8fZAszfyB2djbdctk\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122066d638d4a5cfc9c13f2a76d8b4d6cc8c2b8c89e2e21e8a9f2e8e90c0afab0b3064736f6c63430008120033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122066d638d4a5cfc9c13f2a76d8b4d6cc8c2b8c89e2e21e8a9f2e8e90c0afab0b3064736f6c63430008120033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "64:157:27:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "64:157:27:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity 0.8.18;\r\n\r\ncontract DiagnosticEvents {\r\n    event DiagnosticianCertified(address diagnosticianAddress);\r\n    event AskedVerification(address diagnosticianAddress);\r\n\r\n}",
+  "sourcePath": "D:\\dev_blockchain\\alyra\\Diagnostify - Copy\\truffle\\contracts\\DiagnosticEvents.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/DiagnosticEvents.sol",
+    "exportedSymbols": {
+      "DiagnosticEvents": [
+        7669
+      ]
+    },
+    "id": 7670,
+    "license": "GPL-3.0",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7660,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".18"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "37:23:27"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "DiagnosticEvents",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 7669,
+        "linearizedBaseContracts": [
+          7669
+        ],
+        "name": "DiagnosticEvents",
+        "nameLocation": "73:16:27",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "eventSelector": "30d05b2025fb2d037233ed74b152f14cada68119b8a2940f327d339e3dcc2e83",
+            "id": 7664,
+            "name": "DiagnosticianCertified",
+            "nameLocation": "103:22:27",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 7663,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7662,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "diagnosticianAddress",
+                  "nameLocation": "134:20:27",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7664,
+                  "src": "126:28:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7661,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "126:7:27",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "125:30:27"
+            },
+            "src": "97:59:27"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "db93a33261a88e8784b5e49bf38f3c65c17793892e2c0c1c37f5d962eb4df3f6",
+            "id": 7668,
+            "name": "AskedVerification",
+            "nameLocation": "168:17:27",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 7667,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7666,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "diagnosticianAddress",
+                  "nameLocation": "194:20:27",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7668,
+                  "src": "186:28:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7665,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "186:7:27",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "185:30:27"
+            },
+            "src": "162:54:27"
+          }
+        ],
+        "scope": 7670,
+        "src": "64:157:27",
+        "usedErrors": []
+      }
+    ],
+    "src": "37:184:27"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.18+commit.87f61d96.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-04-04T21:56:17.562Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

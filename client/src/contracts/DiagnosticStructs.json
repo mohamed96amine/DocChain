@@ -1,0 +1,527 @@
+{
+  "contractName": "DiagnosticStructs",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/DiagnosticDomain.sol\":\"DiagnosticStructs\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/DiagnosticDomain.sol\":{\"keccak256\":\"0xbe35c1c448d212fec0b57fc7ddee6a1b00e08e37dc40668c2ecced5a6f9f839d\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://92dc8cf4dcc61568a392e377c084f0048fba75e2d31d0b4cfc9d6e39028e07ca\",\"dweb:/ipfs/QmeJJR6St16dDtGhTTomTxHP8prRcLTeNAR5PrCEWvu4dZ\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220a7b48143592aafe26ea0f6fc1cf1717c0784e68a52f1a8e0f10701b8295228ca64736f6c63430008120033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220a7b48143592aafe26ea0f6fc1cf1717c0784e68a52f1a8e0f10701b8295228ca64736f6c63430008120033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "64:552:26:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "64:552:26:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity 0.8.18;\r\n\r\ncontract DiagnosticStructs {\r\n    struct Diagnostic {\r\n        string name;\r\n        string diagnosticType;\r\n        Diagnostician madeBy;\r\n    }\r\n\r\n    struct Diagnostician {\r\n        string id;\r\n        string name;\r\n        bool isCertified;\r\n    }\r\n\r\n    struct Property {\r\n        string id;\r\n        Diagnostic[] diagnostics;\r\n        string typeOfProperty;\r\n    }\r\n\r\n    struct PropertyOwner {\r\n        Property[] properties;\r\n    }\r\n\r\n\r\n    struct UserInfo {\r\n        Diagnostician diagnostician;\r\n        PropertyOwner propertyOwner;\r\n    }\r\n}\r\n",
+  "sourcePath": "D:\\dev_blockchain\\alyra\\Diagnostify - Copy\\truffle\\contracts\\DiagnosticDomain.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/DiagnosticDomain.sol",
+    "exportedSymbols": {
+      "DiagnosticStructs": [
+        7658
+      ]
+    },
+    "id": 7659,
+    "license": "GPL-3.0",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7621,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".18"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "37:23:26"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "DiagnosticStructs",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 7658,
+        "linearizedBaseContracts": [
+          7658
+        ],
+        "name": "DiagnosticStructs",
+        "nameLocation": "73:17:26",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "DiagnosticStructs.Diagnostic",
+            "id": 7629,
+            "members": [
+              {
+                "constant": false,
+                "id": 7623,
+                "mutability": "mutable",
+                "name": "name",
+                "nameLocation": "134:4:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7629,
+                "src": "127:11:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 7622,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "127:6:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7625,
+                "mutability": "mutable",
+                "name": "diagnosticType",
+                "nameLocation": "156:14:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7629,
+                "src": "149:21:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 7624,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:6:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7628,
+                "mutability": "mutable",
+                "name": "madeBy",
+                "nameLocation": "195:6:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7629,
+                "src": "181:20:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Diagnostician_$7636_storage_ptr",
+                  "typeString": "struct DiagnosticStructs.Diagnostician"
+                },
+                "typeName": {
+                  "id": 7627,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 7626,
+                    "name": "Diagnostician",
+                    "nameLocations": [
+                      "181:13:26"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 7636,
+                    "src": "181:13:26"
+                  },
+                  "referencedDeclaration": 7636,
+                  "src": "181:13:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Diagnostician_$7636_storage_ptr",
+                    "typeString": "struct DiagnosticStructs.Diagnostician"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Diagnostic",
+            "nameLocation": "105:10:26",
+            "nodeType": "StructDefinition",
+            "scope": 7658,
+            "src": "98:111:26",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DiagnosticStructs.Diagnostician",
+            "id": 7636,
+            "members": [
+              {
+                "constant": false,
+                "id": 7631,
+                "mutability": "mutable",
+                "name": "id",
+                "nameLocation": "256:2:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7636,
+                "src": "249:9:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 7630,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "249:6:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7633,
+                "mutability": "mutable",
+                "name": "name",
+                "nameLocation": "276:4:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7636,
+                "src": "269:11:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 7632,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "269:6:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7635,
+                "mutability": "mutable",
+                "name": "isCertified",
+                "nameLocation": "296:11:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7636,
+                "src": "291:16:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 7634,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "291:4:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Diagnostician",
+            "nameLocation": "224:13:26",
+            "nodeType": "StructDefinition",
+            "scope": 7658,
+            "src": "217:98:26",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DiagnosticStructs.Property",
+            "id": 7645,
+            "members": [
+              {
+                "constant": false,
+                "id": 7638,
+                "mutability": "mutable",
+                "name": "id",
+                "nameLocation": "357:2:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7645,
+                "src": "350:9:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 7637,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "350:6:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7642,
+                "mutability": "mutable",
+                "name": "diagnostics",
+                "nameLocation": "383:11:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7645,
+                "src": "370:24:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Diagnostic_$7629_storage_$dyn_storage_ptr",
+                  "typeString": "struct DiagnosticStructs.Diagnostic[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 7640,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 7639,
+                      "name": "Diagnostic",
+                      "nameLocations": [
+                        "370:10:26"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 7629,
+                      "src": "370:10:26"
+                    },
+                    "referencedDeclaration": 7629,
+                    "src": "370:10:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Diagnostic_$7629_storage_ptr",
+                      "typeString": "struct DiagnosticStructs.Diagnostic"
+                    }
+                  },
+                  "id": 7641,
+                  "nodeType": "ArrayTypeName",
+                  "src": "370:12:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_Diagnostic_$7629_storage_$dyn_storage_ptr",
+                    "typeString": "struct DiagnosticStructs.Diagnostic[]"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7644,
+                "mutability": "mutable",
+                "name": "typeOfProperty",
+                "nameLocation": "412:14:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7645,
+                "src": "405:21:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 7643,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "405:6:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Property",
+            "nameLocation": "330:8:26",
+            "nodeType": "StructDefinition",
+            "scope": 7658,
+            "src": "323:111:26",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DiagnosticStructs.PropertyOwner",
+            "id": 7650,
+            "members": [
+              {
+                "constant": false,
+                "id": 7649,
+                "mutability": "mutable",
+                "name": "properties",
+                "nameLocation": "485:10:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7650,
+                "src": "474:21:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Property_$7645_storage_$dyn_storage_ptr",
+                  "typeString": "struct DiagnosticStructs.Property[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 7647,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 7646,
+                      "name": "Property",
+                      "nameLocations": [
+                        "474:8:26"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 7645,
+                      "src": "474:8:26"
+                    },
+                    "referencedDeclaration": 7645,
+                    "src": "474:8:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Property_$7645_storage_ptr",
+                      "typeString": "struct DiagnosticStructs.Property"
+                    }
+                  },
+                  "id": 7648,
+                  "nodeType": "ArrayTypeName",
+                  "src": "474:10:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_Property_$7645_storage_$dyn_storage_ptr",
+                    "typeString": "struct DiagnosticStructs.Property[]"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "PropertyOwner",
+            "nameLocation": "449:13:26",
+            "nodeType": "StructDefinition",
+            "scope": 7658,
+            "src": "442:61:26",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DiagnosticStructs.UserInfo",
+            "id": 7657,
+            "members": [
+              {
+                "constant": false,
+                "id": 7653,
+                "mutability": "mutable",
+                "name": "diagnostician",
+                "nameLocation": "554:13:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7657,
+                "src": "540:27:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Diagnostician_$7636_storage_ptr",
+                  "typeString": "struct DiagnosticStructs.Diagnostician"
+                },
+                "typeName": {
+                  "id": 7652,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 7651,
+                    "name": "Diagnostician",
+                    "nameLocations": [
+                      "540:13:26"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 7636,
+                    "src": "540:13:26"
+                  },
+                  "referencedDeclaration": 7636,
+                  "src": "540:13:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Diagnostician_$7636_storage_ptr",
+                    "typeString": "struct DiagnosticStructs.Diagnostician"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7656,
+                "mutability": "mutable",
+                "name": "propertyOwner",
+                "nameLocation": "592:13:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 7657,
+                "src": "578:27:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_PropertyOwner_$7650_storage_ptr",
+                  "typeString": "struct DiagnosticStructs.PropertyOwner"
+                },
+                "typeName": {
+                  "id": 7655,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 7654,
+                    "name": "PropertyOwner",
+                    "nameLocations": [
+                      "578:13:26"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 7650,
+                    "src": "578:13:26"
+                  },
+                  "referencedDeclaration": 7650,
+                  "src": "578:13:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_PropertyOwner_$7650_storage_ptr",
+                    "typeString": "struct DiagnosticStructs.PropertyOwner"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "UserInfo",
+            "nameLocation": "520:8:26",
+            "nodeType": "StructDefinition",
+            "scope": 7658,
+            "src": "513:100:26",
+            "visibility": "public"
+          }
+        ],
+        "scope": 7659,
+        "src": "64:552:26",
+        "usedErrors": []
+      }
+    ],
+    "src": "37:581:26"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.18+commit.87f61d96.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-04-04T21:56:17.561Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
