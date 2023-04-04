@@ -116,6 +116,7 @@ module.exports = {
       confirmations: 2,
       timeoutBlocks: 200,
       skipDryRun: true,
+      networkCheckTimeout: 150000,
       from: "0xcA227EE2ACD18272F5D5338c1d4Fc294AA826Bc8",
     },
     //

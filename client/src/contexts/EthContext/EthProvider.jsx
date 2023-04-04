@@ -18,11 +18,18 @@ function EthProvider({ children }) {
       let allEvents = [];
       let userService;
       try {
+        console.log(networkID);
+        console.log(artifact);
         address = artifact.networks[networkID].address;
+        console.log(address);
         contract = new web3.eth.Contract(abi, address);
         const owner = await contract.methods.owner().call();
+        let fromBlockNumber;
+        web3.eth.getBlockNumber().then((blockNumber) => {
+          fromBlockNumber = blockNumber;
+          });
         allEvents = await contract.getPastEvents("allEvents", {
-          fromBlock: 0,
+          fromBlock: fromBlockNumber,
           toBlock: "latest",
         });
         const getMyself = await contract.methods
