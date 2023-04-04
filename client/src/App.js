@@ -1,6 +1,6 @@
 import { EthProvider } from "./contexts/EthContext";
 import { Routes, Route } from "react-router-dom";
-import Topbar from "./scenes/global/Topbar";
+import Topbar from "./scenes/global/TopBar";
 import Dashboard from "./scenes/dashboard";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";

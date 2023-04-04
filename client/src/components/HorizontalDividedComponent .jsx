@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { create } from "ipfs-http-client";
 import { styled } from "@mui/system";
-import db from "../service/db/firebase";
+import db from "../service/db/FireBase";
 import useEth from "../contexts/EthContext/useEth";
 import { collection, addDoc } from "firebase/firestore";
 import {

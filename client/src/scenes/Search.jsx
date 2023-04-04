@@ -3,7 +3,7 @@ import { Box, Typography, Grid, Paper, Container } from "@mui/material";
 import { styled } from "@mui/system";
 import AddressSearchBox from "../components/AddressSearchBox";
 import PDFPreviewCard from "../components/PDFPreviewCard";
-import db from "../service/db/firebase";
+import db from "../service/db/FireBase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import useEth from "../contexts/EthContext/useEth";
 
