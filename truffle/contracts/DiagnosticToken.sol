@@ -19,10 +19,11 @@ contract DiagnosticToken is ERC721, ERC721URIStorage, AccessControl {
     mapping(uint256 => string) private _pdfHashes;
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs";
+        return "";
     }
 
     constructor() ERC721("Diagnostic", "DGC") {
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(DIAGNOSTICIAN_ROLE, msg.sender);
     }
 
