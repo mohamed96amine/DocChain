@@ -7,7 +7,7 @@ class BlockchainService {
 
   getDiagnostician = async (address) => {
     try {
-      return await this.contract.methods.diagnosticians(address).call();
+      return await this.contract.methods.verifiedDiagnostician(address).call();
     } catch (err) {
       console.error(err);
     }

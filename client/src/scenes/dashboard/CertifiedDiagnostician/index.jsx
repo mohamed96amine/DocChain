@@ -10,7 +10,7 @@ import { tokens } from "../../../theme";
 import Header from "../../../components/Header";
 import HorizontalDividedComponent from "../../../components/HorizontalDividedComponent ";
 
-const DiagnosticianDashboard = () => {
+const CertifiedDiagnosticianDashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -45,4 +45,4 @@ const DiagnosticianDashboard = () => {
   );
 };
 
-export default DiagnosticianDashboard;
+export default CertifiedDiagnosticianDashboard;

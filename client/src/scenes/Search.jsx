@@ -55,7 +55,6 @@ const FindDiagnosticsPage = () => {
   const handleSearch = async (address) => {
     pdfFiles.length = 0;
     const results = await getNftIdFromDb(address);
-    console.log(typeof results);
     results.forEach(async (result) => {
       console.log(result.nft_id);
       const tokenId = await userService.getPdfHash(result.nft_id);

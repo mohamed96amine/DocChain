@@ -17,22 +17,17 @@ function ConnectWallet() {
     useEffect(() => {
         // Check if the user is connected to MetaMask
         if (window.ethereum && address === null) {
-          console.log(address);
           setIsConnected(true);
           setWeb3(new Web3(window.ethereum));
           setAddress(window.ethereum.selectedAddress);
-          console.log('is connected');
         } else {
           setIsConnected(false);
-          console.log('is not connected');
         }
       }, []);
     
     const connectWallet = async () => {
         try {
-          // Request connection to MetaMask
           await window.ethereum.request({ method: 'eth_requestAccounts' });
-          
           setIsConnected(true);
           setWeb3(new Web3(window.ethereum));
           setAddress(window.ethereum.selectedAddress);

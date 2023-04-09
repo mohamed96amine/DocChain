@@ -18,16 +18,14 @@ function EthProvider({ children }) {
       let allEvents = [];
       let userService;
       try {
-        console.log(networkID);
-        console.log(artifact);
         address = artifact.networks[networkID].address;
-        console.log(address);
+
         contract = new web3.eth.Contract(abi, address);
         const owner = await contract.methods.owner().call();
         let fromBlockNumber;
         web3.eth.getBlockNumber().then((blockNumber) => {
           fromBlockNumber = blockNumber;
-          });
+        });
         allEvents = await contract.getPastEvents("allEvents", {
           fromBlock: fromBlockNumber,
           toBlock: "latest",
@@ -35,12 +33,17 @@ function EthProvider({ children }) {
         const getMyself = await contract.methods
           .myself()
           .call({ from: currentUser });
+          console.log(getMyself);
+
         myself = {
           address: currentUser,
           isOwner: currentUser === owner,
-          isCertified: !!getMyself?.diagnostician.isCertified,
-          siret: !!getMyself?.diagnostician.siret,
+          isPropertyOwner: getMyself.role === "PropertyOwner",
+          isCertifiedDiagnostician: getMyself.role === "CertifiedDiagnostician",
+          isUncertifiedDiagnostician: getMyself.role  === "UncertifiedDiagnostician",
+          role: getMyself.role
         };
+        console.log(myself);
         userService = new UserService(contract, accounts, myself);
       } catch (err) {
         console.error(err);
@@ -54,7 +57,7 @@ function EthProvider({ children }) {
           networkID,
           contract,
           myself,
-          userService, 
+          userService,
           allEvents: allEvents,
         },
       });
@@ -64,8 +67,7 @@ function EthProvider({ children }) {
   useEffect(() => {
     const tryInit = async () => {
       try {
-        const artifact = require("../../contracts/DiagnosticManager.json");
-
+        const artifact = require("../../contracts/PropertyManager.json");
         init(artifact);
       } catch (err) {
         console.error(err);

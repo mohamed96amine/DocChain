@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { create } from "ipfs-http-client";
 import { styled } from "@mui/system";
-import db from "../service/db/FireBase";
 import useEth from "../contexts/EthContext/useEth";
-import { collection, addDoc } from "firebase/firestore";
+import db from "../service/db/FireBase";
+import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import {
+  TableCell,
+  TableRow,
+  TableBody,
+  TableHead,
+  Table,
+  Paper,
+  TableContainer,
   Box,
   Button,
   Typography,
@@ -15,8 +22,6 @@ import {
 } from "@mui/material";
 import { tokens } from "../theme";
 import { Buffer } from "buffer";
-import AddressVerification from "./AddressForm";
-import DiagnosticianService from "../service/DiagnosticianService";
 
 const projectId = "2NauIzqJXEf0mJJTnI15MM5DOOg";
 const projectSecret = "2232b40ef775dcebab8b98dc3bde5b6b";
@@ -52,23 +57,60 @@ const LeftPart = () => {
   const [file, setFile] = useState(null);
   const [fileCID, setFileCID] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [requests, setRequests] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const {
-    state: { contract, accounts, myself },
+    state: { userService },
   } = useEth();
-  const diagnosticianService = new DiagnosticianService(
-    contract,
-    accounts,
-    myself
-  );
 
   const handleChange = (event) => {
     setFile(event.target.files[0]);
   };
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  useEffect(() => {
+    getDiagnosticRequests();
+  }, [userService]);
+
+  const getDiagnosticRequests = async () => {
+    const result = await userService.getDiagnosticRequests();
+    
+    const promises = result.map((item) =>
+      findPropertiesByContractAddress(item.property)
+    );
+    const resolvedProperties = await Promise.all(promises);
+    const mappedResult = result.map((item, index) => ({
+      requestId: index,
+      isCompleted: item.isCompleted,
+      propertyOwner: item.propertyOwner,
+      property: resolvedProperties[index][0],
+    }));
+    console.log(mappedResult);
+    
+    setRequests(mappedResult);
+  };
+
+  const findPropertiesByContractAddress = async (contractAddress) => {
+    const propertiesRef = collection(db, "properties");
+    const q = query(
+      propertiesRef,
+      where("contractAddress", "==", contractAddress)
+    );
+    const querySnapshot = await getDocs(q);
+    const matchingProperties = [];
+    querySnapshot.forEach((doc) => {
+      matchingProperties.push({ id: doc.id, ...doc.data() });
+    });
+    return matchingProperties;
+  };
+
   const storeAddress = async (address, id) => {
     try {
       const docRef = await addDoc(collection(db, "addresses"), {
-        address: address.properties.label,
+        address: address,
         nft_id: id,
       });
       console.log("Address and fileCID stored successfully");
@@ -77,12 +119,13 @@ const LeftPart = () => {
     }
   };
 
-  const uploadToIPFS = async () => {
+  const uploadToIPFS = async (requestId, physicalAddress) => {
     try {
       if (!file) {
         console.error("No file selected");
         return;
       }
+
       // Add the document to IPFS
       const document = await client.add(file);
       const path_to_document = document.path;
@@ -95,15 +138,21 @@ const LeftPart = () => {
       console.log("Metadata uploaded to IPFS:", metadata.path);
 
       // Mint NFT
-      const transaction = await diagnosticianService.mintNft(
+      // const expiryDate = Math.floor(selectedDate.getTime() / 1000);
+      console.log(selectedDate);
+      const transaction = await userService.createDiagnostic(
+        requestId,
         path_to_document,
-        metadata.path
+        metadata.path,
+        selectedDate
       );
+      console.log(physicalAddress);
       console.log(transaction);
-      const nft_id = transaction.events.DiagnosticCreated.returnValues.itemId;
+      const nft_id = transaction.events.DiagnosticCreated.returnValues.tokenId;
+      console.log(nft_id);
       // store in database
-      if (selectedAddress && nft_id) {
-        storeAddress(selectedAddress, nft_id);
+      if (physicalAddress && nft_id) {
+        storeAddress(physicalAddress, nft_id);
       } else {
         console.error("No address selected");
       }
@@ -117,58 +166,87 @@ const LeftPart = () => {
   return (
     <StyledBox>
       <div>
-        <Box sx={{ padding: "140px 10px" }}>
+        <Box sx={{ padding: "70px 10px" }}>
           <Stack spacing={2}>
             <Typography variant="h2">Créer un diagnostic</Typography>
-            <AddressVerification
-              fileCID={fileCID}
-              onAddressSelected={setSelectedAddress}
-            />
-            <TextField
-              type={"file"}
-              inputProps={{ accept: "application/pdf" }}
-              onChange={handleChange}
-            />
-            <Button
-              sx={{
-                backgroundColor: colors.blueAccent[700],
-                color: colors.grey[100],
-                fontSize: "14px",
-                fontWeight: "bold",
-                padding: "10px 40px",
-              }}
-              variant="contained"
-              onClick={uploadToIPFS}
-            >
-              Créer
-            </Button>
-            {fileCID && (
-              <Box sx={{ marginTop: 2 }}>
-                <Typography variant="body1">
-                  Accéder au document
-                  {/* <a href={fileURL} target="_blank" rel="noopener noreferrer">
-                    en cliquant içi.
-                  </a> */}
-                  <Link
-                    href={fileURL}
-                    underline="hover"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    en cliquant içi.
-                  </Link>
-                </Typography>
-              </Box>
-            )}
           </Stack>
         </Box>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Adresse</TableCell>
+                <TableCell>Le diagnostic</TableCell>
+                <TableCell>Expire le</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {requests.map((item) => (
+                <TableRow key={item.property.id}>
+                  <TableCell>{item.property.physicalAddress}</TableCell>
+                  <TableCell>
+                    <TextField
+                      type={"file"}
+                      inputProps={{ accept: "application/pdf" }}
+                      onChange={handleChange}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <input
+                      type="date"
+                      value={selectedDate.toISOString().substring(0, 10)}
+                      onChange={handleDateChange}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <div>
+                      {!item.isCompleted && (
+                        <Button
+                          sx={{
+                            backgroundColor: colors.blueAccent[700],
+                            color: colors.grey[100],
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            padding: "10px 40px",
+                          }}
+                          variant="contained"
+                          onClick={() => uploadToIPFS(item.requestId, item.property.physicalAddress)}
+                        >
+                          Émettre
+                        </Button>
+                      )}
+                      {item.isCompleted && (
+                        <Typography>Diagnostic réalisé</Typography>
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {fileCID && (
+          <Box sx={{ marginTop: 2 }}>
+            <Typography variant="body1">
+              Accéder au document
+              {/* <a href={fileURL} target="_blank" rel="noopener noreferrer">
+                    en cliquant içi.
+                  </a> */}
+              <Link
+                href={fileURL}
+                underline="hover"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                en cliquant içi.
+              </Link>
+            </Typography>
+          </Box>
+        )}
       </div>
     </StyledBox>
   );
-};
-
-const RightPart = ({ fileCID }) => {
-  return <StyledBox></StyledBox>;
 };
 
 const HorizontalDividedComponent = () => {

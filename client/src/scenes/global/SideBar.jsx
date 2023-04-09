@@ -48,26 +48,7 @@ const Sidebar = () => {
   
 
   useEffect(() => {
-    const getOwner = async () => {
-      try {
-        const owner = await contract.methods.owner().call();
-        if(accounts.includes(owner)){
-          setIsOwner(true);
-        }else {
-          setIsOwner(false);
-        }
-      } catch (err) {
-        console.error(err);
-      } 
-    }
-    const handleAccountsChanged = () => {
-      getOwner();
-    };
     
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-    }
-    getOwner();    
   }, [contract, accounts]); 
 
   return (

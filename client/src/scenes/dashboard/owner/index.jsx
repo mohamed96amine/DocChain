@@ -15,7 +15,6 @@ import Header from "../../../components/Header";
 import { useEffect, useState } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import OwnerService from "../../../service/OwnerService";
 import useEth from "../../../contexts/EthContext/useEth";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -28,19 +27,16 @@ import Alert from "@mui/material/Alert";
 
 const OwnerDashboard = () => {
   const {
-    state: { contract, accounts, myself },
+    state: { userService },
   } = useEth();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const ownerService = new OwnerService(contract, accounts, myself);
   const [diagnosticianAddress, setDiagnosticianAddress] = useState("");
   const [siret, setSiret] = useState("");
   const [foundDiagnostician, setFoundDiagnostician] = useState(null);
-  const [isValidAddress, setIsValidAddress] = useState(true);
-  const [status, setStatus] = useState(false);
 
   const handleSearch = () => {
-    const diagnostician = ownerService.getDiagnosticianBySiret(siret);
+    const diagnostician = userService.getDiagnosticianBySiret(siret);
     diagnostician.then((result) => {    
       result[1].then((d) => {
         setFoundDiagnostician(d);
@@ -50,54 +46,13 @@ const OwnerDashboard = () => {
   };
 
   const handleCertification = () => {
-    const result = ownerService.certifyDiagnostician(diagnosticianAddress);
+    const result = userService.certifyDiagnostician(diagnosticianAddress);
+    console.log(result);
   };
 
   const handleInputChange = (event) => {
     setSiret(event.target.value);
-    // setDiagnosticianAddress(event.target.value);
   };
-
-  const isEthereumAddressValid = () => {
-    const regex = /^0x[a-fA-F0-9]{40}$/;
-    return regex.test(diagnosticianAddress);
-  };
-
-  function isSiretValid(siret) {
-    // S'assurer que le SIRET est une chaîne de caractères
-    siret = siret.toString();
-
-    // Vérifier que le SIRET a une longueur de 14 chiffres
-    if (siret.length !== 14) {
-      return false;
-    }
-
-    // Vérifier que le SIRET ne contient que des chiffres
-    if (!/^\d{14}$/.test(siret)) {
-      return false;
-    }
-
-    // Appliquer l'algorithme de Luhn pour la validation
-    let sum = 0;
-
-    for (let i = 0; i < siret.length; i++) {
-      let digit = parseInt(siret[i], 10);
-
-      if (i % 2 === 0) {
-        // Les positions impaires
-        digit *= 2;
-
-        if (digit > 9) {
-          digit -= 9;
-        }
-      }
-
-      sum += digit;
-    }
-
-    // Si la somme est un multiple de 10, le SIRET est valide
-    return sum % 10 === 0;
-  }
 
   return (
     <Box m="20px">

@@ -1,12 +1,23 @@
-import { Box, Button, TextField, Stack, Container } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  TextField,
+  Stack,
+  Container,
+  Typography,
+  LinearProgress,
+} from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { styled } from "@mui/system";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../../components/Header";
-import UserService from "../../../service/UserService";
 import useEth from "../../../contexts/EthContext/useEth";
+import React, { useState, useEffect } from "react";
+import db from "../../../service/db/FireBase";
+import { collection, addDoc } from "firebase/firestore";
+
 const NeonTextField = styled(TextField)(({ theme }) => ({
   "& label.Mui-focused": {
     color: "cyan",
@@ -41,55 +52,69 @@ const NeonButton = styled(Button)(({ theme }) => ({
   boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
 }));
 
-const UserDashboard = () => {
+const UncertifiedDiagnosticianDashboard = () => {
   const {
-    state: { contract, accounts, myself },
+    state: { myself, userService },
   } = useEth();
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const userService = new UserService(contract, accounts, myself);
-  const [foundDiagnostician, setFoundDiagnostician] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
-    userService.askForVerification(values["name"], values["siret"]);
+  const storeDiagnostician = async (_address) => {
+    try {
+      const docRef = await addDoc(collection(db, "diagnosticians"), {
+        address: _address,
+      });
+      console.log("Diagnostician stored successfully");
+    } catch (error) {
+      console.error("Error storing address and fileCID:", error);
+    }
+  };
+  const handleFormSubmit = async (values) => {
+    const event = await userService.askForVerification(
+      values["name"],
+      values["siret"]
+    );
+    console.log(event);
+    if (event.status == true) {
+      setFormSubmitted(true);
+      storeDiagnostician(myself.address);
+    }
   };
 
-  useEffect(() => {
-    const getAccountInfo = async () => {
-      console.log(accounts[0]);
-      const diagnostician = userService.getDiagnostician(accounts[0]);
-      diagnostician.then((d) => {
-        console.log(d);
-        setFoundDiagnostician(d);
-      });
-      console.log(foundDiagnostician);
-    };
-    getAccountInfo();
-  }, [contract, accounts]);
+  useEffect(() => {}, [formSubmitted]);
 
   return (
     <Box m="20px">
       <Container
-          sx={{
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            maxWidth: "100%",
-          }}
-        >
-      <Header
-        title="Demande de vérification"
-        subtitle="Demander une vérification pour pouvoir réaliser des diagnostics."
-      />
-      {foundDiagnostician && (
-        
+        sx={{
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          maxWidth: "100%",
+        }}
+      >
+        <Header
+          title="Demande de vérification"
+          subtitle="Demander une vérification pour pouvoir réaliser des diagnostics."
+        />
+        {myself && !formSubmitted && (
           <div>
-            {foundDiagnostician.isCertified ? (
-              <p>Vous etes deja certifié</p>
+            {myself.isCertifiedDiagnostician ? (
+              <Box display="flex" alignItems="center" mt="20px">
+                <CheckIcon sx={{ fontSize: 30, color: "green" }} />
+                <Box ml={2}>
+                  <Typography variant="h5">Vous etes deja certifié.</Typography>
+                </Box>
+              </Box>
             ) : (
               <div>
-                {foundDiagnostician.name ? (
-                  <p>En cours</p>
+                {myself.isUncertifiedDiagnostician ? (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress color="success" />
+                    <Typography>
+                      Votre demande de verification est en cours de traitement.
+                    </Typography>
+                  </Box>
                 ) : (
                   <div>
                     <Formik
@@ -141,7 +166,7 @@ const UserDashboard = () => {
                                 name="siret"
                                 error={!!touched.siret && !!errors.siret}
                                 helperText={touched.siret && errors.siret}
-                                sx={{ gridColumn: "span 2", width: "400px"  }}
+                                sx={{ gridColumn: "span 2", width: "400px" }}
                               />
                               <Box
                                 display="flex"
@@ -166,11 +191,21 @@ const UserDashboard = () => {
               </div>
             )}
           </div>
-        
-      )}
+        )}
+        {myself && formSubmitted && (
+          <div>
+            <Box display="flex" alignItems="center" mt="20px">
+              <CheckIcon sx={{ fontSize: 30, color: "green" }} />
+              <Box ml={2}>
+                <Typography variant="h5">
+                  Votre demande a bien été prise en compte.
+                </Typography>
+              </Box>
+            </Box>
+          </div>
+        )}
       </Container>
     </Box>
-    
   );
 };
 
@@ -188,4 +223,4 @@ const initialValues = {
   siret: "",
 };
 
-export default UserDashboard;
+export default UncertifiedDiagnosticianDashboard;
