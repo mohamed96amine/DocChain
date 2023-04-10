@@ -5,9 +5,9 @@ import {
   Stack,
   Container,
   Autocomplete,
-  Typography
+  Typography,
 } from "@mui/material";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { styled } from "@mui/system";
@@ -17,6 +17,7 @@ import { useEth } from "../contexts/EthContext";
 import React, { useState, useEffect } from "react";
 import db from "../service/db/FireBase";
 import { collection, addDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const NeonTextField = styled(TextField)(({ theme }) => ({
   "& label.Mui-focused": {
@@ -59,12 +60,17 @@ const AddPropertyForm = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [addressSuggestions, setAddressSuggestions] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const initialValues = {
     name: "",
     descr: "",
     address: "",
   };
+
+  const handleOk = () => {
+    navigate("/");
+  }
 
   const handleFormSubmit = async (values) => {
     const res = await userService.createProperty(
@@ -74,19 +80,29 @@ const AddPropertyForm = () => {
 
     if (res.status == true) {
       console.log("ok");
-      console.log(res.events.PropertyCreated.returnValues['property']);
+      console.log(res.events.PropertyCreated.returnValues["property"]);
       setFormSubmitted(true);
-      storeProperty(res.events.PropertyCreated.returnValues['property'], values["name"], values["descr"], values["address"]);
+      storeProperty(
+        res.events.PropertyCreated.returnValues["property"],
+        values["name"],
+        values["descr"],
+        values["address"]
+      );
     }
   };
 
-  const storeProperty = async (_contractAddress, _name, _description, _physicalAddress) => {
+  const storeProperty = async (
+    _contractAddress,
+    _name,
+    _description,
+    _physicalAddress
+  ) => {
     try {
       const docRef = await addDoc(collection(db, "properties"), {
         contractAddress: _contractAddress,
         name: _name,
         description: _description,
-        physicalAddress: _physicalAddress
+        physicalAddress: _physicalAddress,
       });
       console.log("Address and fileCID stored successfully");
     } catch (error) {
@@ -226,6 +242,16 @@ const AddPropertyForm = () => {
                   <Typography variant="h5">
                     Vous avez bien ajouté votre bien. Merci!
                   </Typography>
+                  <Box display="flex" justifyContent="end" mt="20px">
+                    <NeonButton
+                      type="submit"
+                      color="success"
+                      variant="contained"
+                      onClick={handleOk}
+                    >
+                      D'accord
+                    </NeonButton>
+                  </Box>
                 </Box>
               </Box>
             )}

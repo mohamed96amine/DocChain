@@ -79,7 +79,7 @@ const FindDiagnosticsPage = () => {
           {pdfFiles.map((pdfFile, index) => (
             <Grid key={index} item xs={3}>
               <Item>
-                <PDFPreviewCard pdfFile={pdfFile} />
+                <PDFPreviewCard pdfFile="https://ipfs.io/ipfs/QmR5CXfryrqazn53gHGU8VZ8vTnpdeSLcuXiJqoJrqxJBs" isLocked={true} />
               </Item>
             </Grid>
           ))}

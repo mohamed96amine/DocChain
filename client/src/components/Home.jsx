@@ -65,7 +65,7 @@ const Home = () => {
           Je suis diagnostiqueur
         </NeonButton>
         <NeonButton onClick={onClickGoToPropertyOwner}>
-          Je souhaite propriétaire
+          Je suis propriétaire
         </NeonButton>
       </Box>
     </Box>

@@ -361,7 +361,7 @@ const Property = ({ contractAddress }) => {
         {pdfFiles.map((pdfFile, index) => (
           <Grid key={index} item xs={3}>
             <Item>
-              <PDFPreviewCard pdfFile={pdfFile} />
+              <PDFPreviewCard pdfFile={pdfFile}  isLocked={false} />
             </Item>
           </Grid>
         ))}

@@ -1,39 +1,75 @@
-# React Truffle Box
+# Projet de Diagnostics Immobiliers sur Blockchain
 
-This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.
+## Présentation
+
+Ce projet vise à résoudre les problèmes de transparence, d'exactitude et de falsification des diagnostics immobiliers en utilisant la technologie blockchain. Il permet également de gérer les documents immobiliers en général.
+
+## Démo
+
+lien : https://www.youtube.com/watch?v=d3HO6NFzQHk
+
+## Table des matières
+
+- [Installation](#installation)
+- [Fonctionnalités](#fonctionnalités)
+- [Technologies utilisées](#technologies-utilisées)
+- [Déploiement](#déploiement)
+- [Améliorations futures](#améliorations-futures)
+- [License](#license)
 
 ## Installation
 
-First ensure you are in an empty directory.
+Clonez ce dépôt, puis installez les dépendances :
 
-Run the `unbox` command using 1 of 2 ways.
-
-```sh
-# Install Truffle globally and run `truffle unbox`
-$ npm install -g truffle
-$ truffle unbox react
+```bash
+git clone https://github.com/votre-username/projet-diagnostics-immobiliers-blockchain.git
+cd projet-diagnostics-immobiliers-blockchain
+npm install
 ```
 
-```sh
-# Alternatively, run `truffle unbox` via npx
-$ npx truffle unbox react
+## Fonctionnalités
+
+- Gestion des diagnostics immobiliers
+- Transparence et sécurité des données grâce à la blockchain
+- Gestion des documents immobiliers en général
+
+## Technologies utilisées
+
+- Solidity
+- Truffle
+- React
+- Material-UI
+- Firestore (pour le stockage hors chaîne)
+- IPFS
+- MochaJS
+- Chai
+- Leaflet
+- Axios
+- API Adresse Gouv
+
+## Déploiement
+
+1. Compilez et migrez les contrats intelligents :
+
+```bash
+truffle compile
+truffle migrate --reset --network <réseau-cible>
 ```
 
-Start the react dev server.
 
-```sh
-$ cd client
-$ npm start
+2. Lancez le serveur de développement React :
+
+```bash
+cd client
+npm start
 ```
 
-From there, follow the instructions on the hosted React app. It will walk you through using Truffle and Ganache to deploy the `SimpleStorage` contract, making calls to it, and sending transactions to change the contract's state.
+3. Ouvrez votre navigateur et accédez à http://localhost:3000.
 
-## FAQ
 
-- __How do I use this with Ganache (or any other network)?__
+## Améliorations futures
+- Améliorer la conception des contrats intelligents
+- Étendre la portée de l'application pour gérer d'autres types de documents immobiliers
 
-  The Truffle project is set to deploy to Ganache by default. If you'd like to change this, it's as easy as modifying the Truffle config file! Check out [our documentation on adding network configurations](https://trufflesuite.com/docs/truffle/reference/configuration/#networks). From there, you can run `truffle migrate` pointed to another network, restart the React dev server, and see the change take place.
-
-- __Where can I find more resources?__
-
-  This Box is a sweet combo of [Truffle](https://trufflesuite.com) and [Webpack](https://webpack.js.org). Either one would be a great place to start!
+## Licence
+Ce projet est sous licence MIT.
